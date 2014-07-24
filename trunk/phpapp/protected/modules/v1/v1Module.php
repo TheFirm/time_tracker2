@@ -1,6 +1,6 @@
 <?php
 
-class V1Module extends CWebModule
+class v1Module extends CWebModule
 {
 	public function init()
 	{

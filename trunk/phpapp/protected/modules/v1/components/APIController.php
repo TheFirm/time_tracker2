@@ -6,6 +6,10 @@
  * Time: 3:44 PM
  */
 
+/**
+ * @method Object onRest(string $event, Callable $listener)
+ * @method emitRest()
+ */
 class APIController extends CController{
 
     public function filters()

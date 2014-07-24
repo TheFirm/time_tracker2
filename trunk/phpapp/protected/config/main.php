@@ -45,10 +45,7 @@ return array(
     ],
 
     'modules' => [
-        'api' => [
-            'modules' => [
-                'v1' //=>
-            ]
+        'v1' => [
         ],
 
         'gii' => [

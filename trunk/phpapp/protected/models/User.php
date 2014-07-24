@@ -15,8 +15,12 @@
  * @property string $last_visited_at
  * @property string $updated_at
  *
+ * @property string $name
+ *
  * The followings are the available model relations:
- * @property Reports[] $reports
+ * @property Report[] $reports
+ *
+ * @method User findByPk($id)
  */
 class User extends CActiveRecord
 {
@@ -127,10 +131,14 @@ class User extends CActiveRecord
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return Users the static model class
+	 * @return User the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);
 	}
+
+    public function getName(){
+        return "$this->first_name $this->last_name";
+    }
 }
