@@ -1,0 +1,24 @@
+Options +FollowSymLinks
+RewriteEngine On
+SetEnv TZ Europe/Kiev
+php_value date.timezone Europe/Kiev
+
+# if a directory or a file exists, use it directly
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+DirectoryIndex index.php
+# otherwise forward it to index.php
+RewriteRule . index.php
+
+#Header add Access-Control-Allow-Origin "*"
+#Header add Access-Control-Allow-Credentials "true"
+#Header add Access-Control-Allow-Headers "*"
+#Header add Access-Control-Allow-Methods "PUT, GET, POST, DELETE, OPTIONS"
+#Header add Access-Control-Allow-Methods "GET, POST"
+#Header add Access-Control-Allow-Headers "origin, x-requested-with, content-type"
+
+#REST
+<Limit GET POST PUT DELETE>
+order deny,allow
+allow from all
+</Limit>

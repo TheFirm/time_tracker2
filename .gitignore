@@ -1,0 +1,5 @@
+# Created by .gitignore support plugin (hsz.mobi)
+.idea/*
+trunk/phpapp/protected/vendor/*
+trunk/phpapp/assets/*
+trunk/phpapp/protected/runtime/*
