@@ -57,9 +57,7 @@ return array(
                 '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
             ),
         ),
-        'db' => array(
-            'connectionString' => 'sqlite:' . dirname(__FILE__) . '/../data/testdrive.db',
-        ),
+        'db' => require("db.php"),
         // uncomment the following to use a MySQL database
         /*
         'db'=>array(

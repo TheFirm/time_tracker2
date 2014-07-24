@@ -14,7 +14,7 @@ CREATE TABLE `users` (
 	`type` TINYINT(3) NOT NULL DEFAULT '0',
 	`auth_key` VARCHAR(255) NULL DEFAULT NULL,
 	`registered_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-	`last_visited_at` TIMESTAMP DEFAULT NULL,
+	`last_visited_at` TIMESTAMP,
 	`isReportTimeLimited` INT(1) NOT NULL DEFAULT '1',
 	PRIMARY KEY (`id`)
 )
