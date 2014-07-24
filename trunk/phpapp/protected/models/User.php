@@ -36,7 +36,7 @@ class User extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('first_name, last_name, mail, password, registered_at', 'required'),
+			array('first_name, last_name, mail', 'required'),
 			array('type', 'numerical', 'integerOnly'=>true),
 			array('mail', 'email'),
 			array('first_name, last_name', 'length', 'max'=>50),
@@ -44,7 +44,7 @@ class User extends CActiveRecord
 			array('last_visited_at, updated_at', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, first_name, last_name, mail, password, type, auth_key, registered_at, last_visited_at, updated_at', 'safe', 'on'=>'search'),
+			array('id, first_name, last_name, mail, password, type, auth_key, created_at, last_visited_at, updated_at', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -73,11 +73,21 @@ class User extends CActiveRecord
 			'password' => 'Password',
 			'type' => 'Type',
 			'auth_key' => 'Auth Key',
-			'registered_at' => 'Registered At',
+			'created_at' => 'Registered At',
 			'last_visited_at' => 'Last Visited At',
 			'updated_at' => 'Updated At',
 		);
 	}
+
+    public function behaviors(){
+        return array(
+            'CTimestampBehavior' => array(
+                'class' => 'zii.behaviors.CTimestampBehavior',
+                'createAttribute' => 'created_at',
+                'updateAttribute' => 'updated_at',
+            )
+        );
+    }
 
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
@@ -104,7 +114,7 @@ class User extends CActiveRecord
 		$criteria->compare('password',$this->password,true);
 		$criteria->compare('type',$this->type);
 		$criteria->compare('auth_key',$this->auth_key,true);
-		$criteria->compare('registered_at',$this->registered_at,true);
+		$criteria->compare('created_at',$this->created_at,true);
 		$criteria->compare('last_visited_at',$this->last_visited_at,true);
 		$criteria->compare('updated_at',$this->updated_at,true);
 

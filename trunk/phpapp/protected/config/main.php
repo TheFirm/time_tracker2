@@ -27,11 +27,21 @@ return array(
         'bootstrap3.widgets.*',
 
         'application.modules.srbac.controllers.SBaseController',
+
+        'eoauth.*',
+        'eoauth.lib.*',
+        'lightopenid.*',
+        'eauth.*',
+        'eauth.services.*',
     ),
 
     'aliases' => [
         'bootstrap3' => 'vendor.drmabuse.yii-bootstrap-3-module',
         'RestfullYii' => 'vendor.starship.restfullyii.starship.RestfullYii',
+
+        'eoauth' => 'vendor.itmages.yii-eoauth',
+        'lightopenid' => 'vendor.itmages.lightopenid.src',
+        'eauth' => 'vendor.nodge.yii-eauth',
     ],
 
     'modules' => [
@@ -112,6 +122,12 @@ return array(
             // The itemChildTable name (default:authitemchild)
             'itemChildTable' => 'AuthItemChild',
         ),
+
+        'loid' => array(
+            'class' => 'lightopenid.loid',
+        ),
+
+        'eauth' => require("eauth.php"),
     ),
 
     // application-level parameters that can be accessed

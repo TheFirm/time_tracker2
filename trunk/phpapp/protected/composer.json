@@ -4,7 +4,8 @@
         "yiisoft/yii": "dev-master",
         "cr0t/yiidebugtb": "dev-master",
         "drmabuse/yii-bootstrap-3-module": "dev-master",
-        "starship/restfullyii": "dev-master"
+        "starship/restfullyii": "dev-master",
+        "nodge/yii-eauth": "dev-master"
     },
     "require-dev": {
         "fzaninotto/faker": "1.*"
