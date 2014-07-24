@@ -3,7 +3,8 @@
         "php": ">=5.4.0",
         "yiisoft/yii": "dev-master",
         "cr0t/yiidebugtb": "dev-master",
-        "drmabuse/yii-bootstrap-3-module": "dev-master"
+        "drmabuse/yii-bootstrap-3-module": "dev-master",
+        "starship/restfullyii": "dev-master"
     },
     "require-dev": {
         "fzaninotto/faker": "1.*"

@@ -6,6 +6,8 @@
 // This is the main Web application configuration. Any writable
 // CWebApplication properties can be configured here.
 Yii::setPathOfAlias('protected', realpath(__DIR__ . '/..'));
+Yii::setPathOfAlias('vendor', realpath(__DIR__ . '/../vendor'));
+
 
 return array(
     'basePath' => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..',
@@ -20,54 +22,64 @@ return array(
         'application.components.*',
 
         //bootstrap3
-        'bootstrap.behaviors.*',
-        'bootstrap.helpers.*',
-        'bootstrap.widgets.*',
+        'bootstrap3.behaviors.*',
+        'bootstrap3.helpers.*',
+        'bootstrap3.widgets.*',
+
+        'application.modules.srbac.controllers.SBaseController',
     ),
 
     'aliases' => [
-        'bootstrap' => 'protected.vendor.drmabuse.yii-bootstrap-3-module',
+        'bootstrap3' => 'vendor.drmabuse.yii-bootstrap-3-module',
+        'RestfullYii' => 'vendor.starship.restfullyii.starship.RestfullYii',
     ],
 
-    'modules' => array(
-        // uncomment the following to enable the Gii tool
-        /*
-        'gii'=>array(
-            'class'=>'system.gii.GiiModule',
-            'password'=>'Enter Your Password Here',
+    'modules' => [
+        'api' => [
+            'modules' => [
+                'v1' //=>
+            ]
+        ],
+
+        'gii' => [
+            'class' => 'system.gii.GiiModule',
+            'password' => '1111',
             // If removed, Gii defaults to localhost only. Edit carefully to taste.
-            'ipFilters'=>array('127.0.0.1','::1'),
-        ),
-        */
-    ),
+            'ipFilters' => array('127.0.0.1', '::1', '10.*.*.*'),
+        ],
+
+        'srbac' => [
+            'userclass' => 'User',
+            'userid' => 'id',
+            'username' => 'first_name',
+            'pageSize' => 10,
+            'superUser' => 'admin',
+            'css' => 'srbac.css',
+            'debug' => true,
+            'layout' => 'application.views.layouts.main',
+            'notAuthorizedView' => 'application.views.site.login',
+            'alwaysAllowed' => array(),
+            'userActions' => array(),
+            'listBoxNumberOfLines' => 15,
+            'imagesPath' => 'srbac.images',
+            'imagesPack' => 'noia',
+            'iconText' => true,
+        ]
+    ],
 
     // application components
     'components' => array(
         'user' => array(
-            // enable cookie-based authentication
             'allowAutoLogin' => true,
         ),
         // uncomment the following to enable URLs in path-format
         'urlManager' => array(
             'urlFormat' => 'path',
             'showScriptName' => false,
-            'rules' => array(
-                '<controller:\w+>/<id:\d+>' => '<controller>/view',
-                '<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
-                '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
-            ),
+            'rules' => require('routes.php'),
         ),
         'db' => require("db.php"),
-        // uncomment the following to use a MySQL database
-        /*
-        'db'=>array(
-            'connectionString' => 'mysql:host=localhost;dbname=testdrive',
-            'emulatePrepare' => true,
-            'username' => 'root',
-            'password' => '',
-            'charset' => 'utf8',
-        ),
-        */
+
         'errorHandler' => array(
             // use 'site/error' action to display errors
             'errorAction' => 'site/error',
@@ -86,6 +98,19 @@ return array(
                 ),
                 */
             ),
+        ),
+
+        'authManager' => array(
+            // The type of Manager (Database)
+            'class' => 'CDbAuthManager',
+            // The database compnent used
+            'connectionID' => 'db',
+            // The itemTable name (default:authitem)
+            'itemTable' => 'AuthItem',
+            // The assignmentTable name (default:authassignment)
+            'assignmentTable' => 'AuthAssignment',
+            // The itemChildTable name (default:authitemchild)
+            'itemChildTable' => 'AuthItemChild',
         ),
     ),
 
