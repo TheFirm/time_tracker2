@@ -5,7 +5,8 @@
         "cr0t/yiidebugtb": "dev-master",
         "drmabuse/yii-bootstrap-3-module": "dev-master",
         "starship/restfullyii": "dev-master",
-        "nodge/yii-eauth": "dev-master"
+        "nodge/yii-eauth": "dev-master",
+        "yiiext/nested-set-behavior": "dev-master"
     },
     "require-dev": {
         "fzaninotto/faker": "1.*"

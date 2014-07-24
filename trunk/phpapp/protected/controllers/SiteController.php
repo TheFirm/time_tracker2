@@ -113,7 +113,11 @@ class SiteController extends Controller
                         $user->last_visited_at = new CDbExpression('NOW()');
                         $user->update('last_visited_at');
 
-                        Yii::app()->user->login($identity);
+                        $userIdentity = new UserIdentity(null, null);
+                        $userIdentity->setId($user->id);
+                        $userIdentity->setState('name', $user->name);
+
+                        Yii::app()->user->login($userIdentity);
                         //var_dump($identity->id, $identity->name, Yii::app()->user->id);exit;
 
                         // special redirect with closing popup window

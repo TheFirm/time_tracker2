@@ -42,6 +42,8 @@ return array(
         'eoauth' => 'vendor.itmages.yii-eoauth',
         'lightopenid' => 'vendor.itmages.lightopenid.src',
         'eauth' => 'vendor.nodge.yii-eauth',
+
+        'nestedSetBehavior' => 'vendor.yiiext.nested-set-behavior',
     ],
 
     'modules' => [

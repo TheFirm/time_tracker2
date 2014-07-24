@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "cfc926a18f33b97d22365722d95f9e15",
+    "hash": "911987178816a0d3e630163e25a2c8fe",
     "packages": [
         {
             "name": "cr0t/yiidebugtb",
@@ -256,6 +256,43 @@
             "time": "2014-07-16 15:45:40"
         },
         {
+            "name": "yiiext/nested-set-behavior",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/yiiext/nested-set-behavior.git",
+                "reference": "89dec5030c5fe8e407e0b352844ac2ad473a5c4b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/yiiext/nested-set-behavior/zipball/89dec5030c5fe8e407e0b352844ac2ad473a5c4b",
+                "reference": "89dec5030c5fe8e407e0b352844ac2ad473a5c4b",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.1.0"
+            },
+            "type": "yii-extension",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Alexander Kochetov",
+                    "email": "creocoder@gmail.com"
+                }
+            ],
+            "description": "AR models behavior that allows to work with nested sets tree.",
+            "homepage": "https://github.com/yiiext/nested-set-behavior",
+            "keywords": [
+                "extension",
+                "nested set",
+                "yii"
+            ],
+            "time": "2014-04-15 10:23:00"
+        },
+        {
             "name": "yiisoft/yii",
             "version": "dev-master",
             "source": {
@@ -397,7 +434,8 @@
         "cr0t/yiidebugtb": 20,
         "drmabuse/yii-bootstrap-3-module": 20,
         "starship/restfullyii": 20,
-        "nodge/yii-eauth": 20
+        "nodge/yii-eauth": 20,
+        "yiiext/nested-set-behavior": 20
     },
     "prefer-stable": false,
     "platform": {

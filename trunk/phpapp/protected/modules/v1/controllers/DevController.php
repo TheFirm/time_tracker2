@@ -1,7 +1,7 @@
 <?php
 
 
-class AuthController extends APIController
+class DevController extends APIController
 {
     public function restEvents()
     {
@@ -18,9 +18,9 @@ class AuthController extends APIController
          *       "google": "http://some link here",
          *     }
          * */
-        $this->onRest('req.get.oauthLoginLinks.render', function() {
+        $this->onRest('req.get.checkAccess.render', function($r) {
             echo json_encode([
-                'google'=> Yii::app()->createAbsoluteUrl('/site/login?service=google_oauth'),
+                Yii::app()->user->checkAccess($r)
             ]);
         });
 
@@ -128,8 +128,8 @@ class AuthController extends APIController
         });
     }
 
-	public function actionIndex()
-	{
-		echo 'V1';
-	}
+    public function actionIndex()
+    {
+        echo 'V1';
+    }
 }
