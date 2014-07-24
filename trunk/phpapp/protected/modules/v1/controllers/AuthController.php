@@ -93,8 +93,8 @@ class AuthController extends APIController
 
         /**
          * @apiGroup Auth
-         * @apiName auth_status
-         * @api {post} /auth/logout Auth status
+         * @apiName auth_logout
+         * @api {post} /auth/logout Auth logout
          * @apiVersion 1.0.0
          *
          *
