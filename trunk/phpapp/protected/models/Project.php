@@ -122,4 +122,20 @@ class Project extends CActiveRecord
     {
         return parent::model($className);
     }
+
+    public static function bindUser($project_id, $user_id){
+        $userProject = new UserProject();
+        $userProject->user_id = $user_id;
+        $userProject->project_id = $project_id;
+        if(!$userProject->save()){
+            throw new CHttpException(500, CJSON::encode($userProject->getErrors()));
+        }
+    }
+
+    public static function isUserBounded($project_id, $user_id){
+        return UserProject::model()->exists('user_id = :user_id AND project_id = :project_id', [
+            ':user_id' => $user_id,
+            ':project_id' => $project_id,
+        ]);
+    }
 }
