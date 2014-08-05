@@ -17,18 +17,18 @@ class UserController extends APIController
          *     {
          *       "success": true,
          *       "data": {
-                    "totalCount": 2,
-                    "user": [
-                        {
-                            "id": "1",
-                            "first_name": "testUser1",
-                            "last_name": "testUser11"
-                        },
-                        {
-                            "id": "2",
-                            "first_name": "testUser2",
-                            "last_name": "testUser22"
-                        }
+         *           "totalCount": 2,
+         *           "user": [
+         *               {
+         *                   "id": "1",
+         *                  "first_name": "testUser1",
+         *                   "last_name": "testUser11"
+         *               },
+         *               {
+         *                   "id": "2",
+         *                   "first_name": "testUser2",
+         *                   "last_name": "testUser22"
+         *               }
          *          ]
          *      }
          * */
@@ -43,17 +43,17 @@ class UserController extends APIController
          * @apiSuccessExample Success-Response:
          *     HTTP/1.1 200 OK
          *     {
-                    "success": true,
-                    "message": "Record Found",
-                    "data": {
-                        "totalCount": 1,
-                        "user": {
-                            "id": "1",
-                            "first_name": "testUser1",
-                            "last_name": "testUser11"
-                        }
-                    }
-                }
+         *           "success": true,
+         *           "message": "Record Found",
+         *           "data": {
+         *               "totalCount": 1,
+         *               "user": {
+         *                   "id": "1",
+         *                   "first_name": "testUser1",
+         *                   "last_name": "testUser11"
+         *               }
+         *           }
+         *      }
          * */
 
         $this->onRest(ERestEvent::MODEL_WITH_RELATIONS, function() {
@@ -67,6 +67,7 @@ class UserController extends APIController
                 'last_name',
             ];
         });
+
 
         $this->onRest('post.filter.req.auth.ajax.user', function($validation) {
             switch ($this->getAction()->getId()) {
@@ -86,8 +87,8 @@ class UserController extends APIController
         });
     }
 
-	public function actionIndex()
-	{
-		echo 'V1';
-	}
+    protected function isFullCOSRSupportEnabled()
+    {
+        return true;
+    }
 }

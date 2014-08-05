@@ -151,4 +151,9 @@ class ProjectController extends APIController
             }
         });
     }
+
+    protected function isFullCOSRSupportEnabled()
+    {
+        return true;
+    }
 }

@@ -10,7 +10,7 @@
  * @property string $created_at
  * @property string $updated_at
  * @property string $updated_by_id
- * @property string $reported_at
+ * @property string $reported_for_date
  * @property string $time_started_at
  * @property string $time_ended_at
  * @property string $comment
@@ -38,10 +38,9 @@ class Report extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('user_id, project_id, updated_by_id', 'length', 'max'=>10),
-			array('created_at, updated_at, reported_at, time_started_at, time_ended_at, comment', 'safe'),
+			array('created_at, updated_at, reported_for_date, time_started_at, time_ended_at, comment', 'safe'),
 			// The following rule is used by search().
-			// @todo Please remove those attributes that should not be searched.
-			array('id, user_id, project_id, created_at, updated_at, updated_by_id, reported_at, time_started_at, time_ended_at, comment', 'safe', 'on'=>'search'),
+			array('id, user_id, project_id, created_at, updated_at, updated_by_id, reported_for_date, time_started_at, time_ended_at, comment', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -70,7 +69,7 @@ class Report extends CActiveRecord
 			'created_at' => 'Created At',
 			'updated_at' => 'Updated At',
 			'updated_by_id' => 'Updated By',
-			'reported_at' => 'Reported At',
+			'reported_for_date' => 'Reported At',
 			'time_started_at' => 'Time Started At',
 			'time_ended_at' => 'Time Ended At',
 			'comment' => 'Comment',
@@ -109,7 +108,7 @@ class Report extends CActiveRecord
 		$criteria->compare('created_at',$this->created_at,true);
 		$criteria->compare('updated_at',$this->updated_at,true);
 		$criteria->compare('updated_by_id',$this->updated_by_id,true);
-		$criteria->compare('reported_at',$this->reported_at,true);
+		$criteria->compare('reported_for_date',$this->reported_for_date,true);
 		$criteria->compare('time_started_at',$this->time_started_at,true);
 		$criteria->compare('time_ended_at',$this->time_ended_at,true);
 		$criteria->compare('comment',$this->comment,true);

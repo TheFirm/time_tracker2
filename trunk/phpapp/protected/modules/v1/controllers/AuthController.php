@@ -128,8 +128,8 @@ class AuthController extends APIController
         });
     }
 
-	public function actionIndex()
-	{
-		echo 'V1';
-	}
+    protected function isFullCOSRSupportEnabled()
+    {
+        return true;
+    }
 }

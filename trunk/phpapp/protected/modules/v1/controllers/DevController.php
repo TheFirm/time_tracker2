@@ -42,12 +42,18 @@ class DevController extends APIController
 
 
         $this->onRest('req.get.fake.render', function ($secret, $id) {
-//            if(!$secret or !$id or $secret != 2234){
-//                throw new CHttpException(400);
-//            }
-//
-//            Yii::app()->user->login(UserIdentity::createAuthenticatedIdentity($id),0); // логинимся под пользователем $id
-//            echo json_encode(['logined' => !Yii::app()->user->isGuest]);
+            if(!$secret or !$id or $secret != 2234){
+                throw new CHttpException(400);
+            }
+
+            $uident = new UserIdentity('t', 't');
+            $user = User::model()->findByPk($id);
+            if(!$user){
+                throw new CHttpException(400, 'No user found with id = ' . $id);
+            }
+            $uident->setId($user->id);
+            Yii::app()->user->login($uident, 0);
+            echo json_encode(['logined' => !Yii::app()->user->isGuest]);
         });
 
         /**
@@ -128,8 +134,8 @@ class DevController extends APIController
         });
     }
 
-    public function actionIndex()
+    protected function isFullCOSRSupportEnabled()
     {
-        echo 'V1';
+        return true;
     }
 }

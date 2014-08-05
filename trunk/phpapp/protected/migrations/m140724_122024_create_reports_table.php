@@ -12,7 +12,7 @@ CREATE TABLE `reports` (
 	`created_at` DATETIME NULL DEFAULT NULL,
 	`updated_at` DATETIME NULL DEFAULT NULL,
 	`updated_by_id` INT(10) UNSIGNED NULL DEFAULT NULL,
-	`reported_at` DATE NULL DEFAULT NULL,
+	`reported_for_date` DATE NULL DEFAULT NULL,
 	`time_started_at` TIME NULL DEFAULT NULL,
 	`time_ended_at` TIME NULL DEFAULT NULL,
 	`comment` TEXT NULL,
