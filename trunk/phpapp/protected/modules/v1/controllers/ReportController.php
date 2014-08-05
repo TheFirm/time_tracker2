@@ -67,6 +67,17 @@ class ReportController extends APIController
             ];
         });
 
+        $this->onRest('req.get.lastReport.render', function() {
+            $lastReport = Report::model()->findByAttributes([
+                'user_id' => Yii::app()->user->id
+            ], ['order' => 'id DESC']);
+
+            echo CJSON::encode([
+                'success' => true,
+                'data' => $lastReport,
+            ]);
+        });
+
 
         /**
          * @apiGroup Report
@@ -81,7 +92,7 @@ class ReportController extends APIController
          *           "success": true,
          *           "message": "Record(s) Found",
          *           "data": {
-         *              "totalCount": 2,
+         *              "totalCount": 1,
          *              "report": {
          *                      "id": "1",
          *                      "user_id": "1",
@@ -112,6 +123,36 @@ class ReportController extends APIController
             return !Yii::app()->user->isGuest;
         });
 
+        /**
+         * @apiGroup Report
+         * @apiName create_user_report
+         * @api {post} /report/:report_id
+         * @apiVersion 1.0.0
+         * @apiParam report_id Report ID
+         *
+         *
+         * @apiSuccessExample Success-Response:
+         *     HTTP/1.1 200 OK
+         *     {
+         *           "success": true,
+         *           "message": "Record Updated",
+         *           "data": {
+         *              "totalCount": 1,
+         *              "report": {
+         *                      "id": "1",
+         *                      "user_id": "1",
+         *                      "project_id": "15",
+         *                      "created_at": "2014-08-05 17:41:44",
+         *                      "updated_at": null,
+         *                      "updated_by_id": null,
+         *                      "reported_for_date": null,
+         *                      "time_started_at": null,
+         *                      "time_ended_at": null,
+         *                      "comment": null
+         *               }
+         *           }
+         *       }
+         * */
         $this->onRest(ERestEvent::MODEL_APPLY_PUT_DATA, function($model, $data, $restricted_properties) {
             /**
              * @var Report $model
