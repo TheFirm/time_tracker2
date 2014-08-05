@@ -24,8 +24,13 @@ class Project extends CActiveRecord
                 'leftAttribute' => 'lft',
                 'rightAttribute' => 'rgt',
                 'levelAttribute' => 'level',
-//                'hasManyRoots ' => true,
+                'hasManyRoots ' => true,
             ),
+            'CTimestampBehavior' => array(
+                'class' => 'zii.behaviors.CTimestampBehavior',
+                'createAttribute' => 'created_at',
+                'updateAttribute' => 'updated_at',
+            )
         );
     }
 
@@ -50,7 +55,6 @@ class Project extends CActiveRecord
             array('name', 'length', 'max' => 50),
             array('lft, rgt', 'length', 'max' => 10),
             // The following rule is used by search().
-            // @todo Please remove those attributes that should not be searched.
             array('id, name, active, lft, rgt, level', 'safe', 'on' => 'search'),
         );
     }

@@ -16,8 +16,8 @@
  * @property string $comment
  *
  * The followings are the available model relations:
- * @property Users $user
- * @property Projects $project
+ * @property User $user
+ * @property Project $project
  */
 class Report extends CActiveRecord
 {
@@ -53,8 +53,8 @@ class Report extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'user' => array(self::BELONGS_TO, 'Users', 'user_id'),
-			'project' => array(self::BELONGS_TO, 'Projects', 'project_id'),
+			'user' => array(self::BELONGS_TO, 'User', 'user_id'),
+			'project' => array(self::BELONGS_TO, 'Project', 'project_id'),
 		);
 	}
 
@@ -77,6 +77,16 @@ class Report extends CActiveRecord
 		);
 	}
 
+    public function behaviors(){
+        return array(
+            'CTimestampBehavior' => array(
+                'class' => 'zii.behaviors.CTimestampBehavior',
+                'createAttribute' => 'created_at',
+                'updateAttribute' => 'updated_at',
+            )
+        );
+    }
+
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 *
@@ -91,8 +101,6 @@ class Report extends CActiveRecord
 	 */
 	public function search()
 	{
-		// @todo Please modify the following code to remove attributes that should not be searched.
-
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id,true);

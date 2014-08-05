@@ -15,9 +15,7 @@ class ReportController extends APIController
             /**
              * @var Report $model
              */
-
             self::applyAllCondition($model);
-
             return $model->count();
         });
 
@@ -25,9 +23,7 @@ class ReportController extends APIController
             /**
              * @var Report $model
              */
-
             self::applyAllCondition($model);
-
             return $model->findAll();
         });
 
@@ -78,9 +74,4 @@ class ReportController extends APIController
 
         return $model;
     }
-
-	public function actionIndex()
-	{
-		echo 'V1';
-	}
 }

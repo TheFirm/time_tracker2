@@ -9,8 +9,8 @@
  * @property string $project_id
  *
  * The followings are the available model relations:
- * @property Projects $project
- * @property Users $user
+ * @property Project $project
+ * @property User $user
  */
 class UserProject extends CActiveRecord
 {
@@ -32,8 +32,8 @@ class UserProject extends CActiveRecord
 		return array(
 			array('user_id, project_id', 'required'),
 			array('id, user_id, project_id', 'length', 'max'=>10),
+            array('user_id+project_id', 'ext.uniqueMultiColumnValidator'),
 			// The following rule is used by search().
-			// @todo Please remove those attributes that should not be searched.
 			array('id, user_id, project_id', 'safe', 'on'=>'search'),
 		);
 	}
@@ -46,10 +46,20 @@ class UserProject extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'project' => array(self::BELONGS_TO, 'Projects', 'project_id'),
-			'user' => array(self::BELONGS_TO, 'Users', 'user_id'),
+			'project' => array(self::BELONGS_TO, 'Project', 'project_id'),
+			'user' => array(self::BELONGS_TO, 'User', 'user_id'),
 		);
 	}
+
+    public function behaviors(){
+        return array(
+            'CTimestampBehavior' => array(
+                'class' => 'zii.behaviors.CTimestampBehavior',
+                'createAttribute' => 'created_at',
+                'updateAttribute' => 'updated_at',
+            )
+        );
+    }
 
 	/**
 	 * @return array customized attribute labels (name=>label)
@@ -77,8 +87,6 @@ class UserProject extends CActiveRecord
 	 */
 	public function search()
 	{
-		// @todo Please modify the following code to remove attributes that should not be searched.
-
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id,true);

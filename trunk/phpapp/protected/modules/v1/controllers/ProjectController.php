@@ -86,7 +86,7 @@ class ProjectController extends APIController
          *      }
          *
          * @apiErrorExample Error-Response:
-         *     HTTP/1.1 400 OK
+         *     HTTP/1.1 400 Error
          *      {
          *          "success": false,
          *          "message": "Missing user id",
@@ -96,7 +96,7 @@ class ProjectController extends APIController
          *          }
          *      }
          * @apiErrorExample Error-Response:
-         *     HTTP/1.1 400 OK
+         *     HTTP/1.1 400 Error
          *      {
          *          "success": false,
          *          "message": "Missing project id",
@@ -131,15 +131,8 @@ class ProjectController extends APIController
             echo json_encode($response);
         });
 
-//        $this->onRest(ERestEvent::MODEL_VISIBLE_PROPERTIES, function() {
-//            return [
-//                'id',
-//                'first_name',
-//                'last_name',
-//            ];
-//        });
 
-        $this->onRest('post.filter.req.auth.ajax.user', function($validation) {
+        $this->onRest(ERestEvent::POST_FILTER_REQ_AUTH_AJAX_USER, function($validation) {
             switch ($this->getAction()->getId()) {
                 case 'REST.GET':
                     return !Yii::app()->user->isGuest;
@@ -158,9 +151,4 @@ class ProjectController extends APIController
             }
         });
     }
-
-	public function actionIndex()
-	{
-		echo 'V1';
-	}
 }

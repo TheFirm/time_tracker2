@@ -6,9 +6,9 @@ class DevController extends APIController
     public function restEvents()
     {
         /**
-         * @apiGroup Auth
-         * @apiName oauthLogin
-         * @api {get} /auth/oauthLoginLinks Oauth login links
+         * @apiGroup Dev
+         * @apiName checkAccess
+         * @api {get} /dev/checkAccess Check's
          * @apiVersion 1.0.0
          *
          *
@@ -51,7 +51,7 @@ class DevController extends APIController
         });
 
         /**
-         * @apiGroup Auth
+         * @apiGroup Dev
          * @apiName auth_status
          * @api {get} /auth/status Auth status
          * @apiVersion 1.0.0
