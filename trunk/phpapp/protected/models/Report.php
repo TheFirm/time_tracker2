@@ -39,6 +39,7 @@ class Report extends CActiveRecord
 		return array(
 			array('user_id, project_id, updated_by_id', 'length', 'max'=>10),
 			array('created_at, updated_at, reported_for_date, time_started_at, time_ended_at, comment', 'safe'),
+			array('user_id, project_id, reported_for_date, time_started_at', 'required'),
 
 			array('project_id', 'validateUserProjectBinding', 'user_id' => 'user_id'),
 			array('time_started_at', 'validateTimeOverlap', 'with' => 'time_ended_at'),
@@ -52,6 +53,22 @@ class Report extends CActiveRecord
 		);
 	}
 
+    protected function beforeDelete()
+    {
+        if(parent::beforeDelete()){
+            if(!$this->checkPastReportDateLimit()){
+                throw new CHttpException(400, 'Sorry, to late :)');
+            }
+
+            if($this->user_id != Yii::app()->user->id){
+                throw new CHttpException(403, 'Forbidden');
+            }
+            return true;
+        }
+        return false;
+    }
+
+
     public function validateUserProjectBinding($attribute, $params){
 
         if(!Project::isUserBounded($this->project_id, $this->user_id)){
@@ -60,8 +77,7 @@ class Report extends CActiveRecord
     }
 
     public function validatePastReportDateLimit(){
-        $lastReportDateLimitInSec = $this->getPastReportDateLimit();
-        if(time() - strtotime($this->reported_for_date) > $lastReportDateLimitInSec){
+        if(!$this->checkPastReportDateLimit()){
             $this->addError('reported_for_date', 'Sorry, to late :)');
         }
     }
@@ -192,6 +208,11 @@ class Report extends CActiveRecord
             $this->reported_for_date = date('Y-m-d', time());;
         }
         return parent::beforeValidate();
+    }
+
+    public function checkPastReportDateLimit(){
+        $lastReportDateLimitInSec = $this->getPastReportDateLimit();
+        return time() - strtotime($this->reported_for_date) < $lastReportDateLimitInSec;
     }
 
     public static function getPastReportDateLimit(){

@@ -101,18 +101,23 @@ class ReportController extends APIController
             /**
              * @var Report $model
              */
-
-            if(!isset($data['project_id'])){
-                throw new CHttpException(400, 'Missing project id.');
-            }
-
             unset($data['user_id']);
 
             $model->user_id = Yii::app()->user->id;
 
-            if(!Project::isUserBounded($data['project_id'], $model->user_id)){
-                throw new CHttpException(400, 'Not bounded to project.');
-            }
+            return $this->getResourceHelper()->setModelAttributes($model, $data, $restricted_properties);
+        });
+
+        $this->onRest('post.filter.req.auth.ajax.user', function($validation) {
+            return !Yii::app()->user->isGuest;
+        });
+
+        $this->onRest(ERestEvent::MODEL_APPLY_PUT_DATA, function($model, $data, $restricted_properties) {
+            /**
+             * @var Report $model
+             */
+
+            $restricted_properties[] = 'user_id';
 
             return $this->getResourceHelper()->setModelAttributes($model, $data, $restricted_properties);
         });
