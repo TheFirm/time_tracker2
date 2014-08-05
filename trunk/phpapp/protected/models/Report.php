@@ -39,8 +39,14 @@ class Report extends CActiveRecord
 		return array(
 			array('user_id, project_id, updated_by_id', 'length', 'max'=>10),
 			array('created_at, updated_at, reported_for_date, time_started_at, time_ended_at, comment', 'safe'),
+
 			array('project_id', 'validateUserProjectBinding', 'user_id' => 'user_id'),
-			array('time_started_at', 'validateTimeIntersection', 'with' => 'time_ended_at'),
+			array('time_started_at', 'validateTimeOverlap', 'with' => 'time_ended_at'),
+			array('reported_for_date', 'validatePastReportDateLimit'),
+			array('reported_for_date', 'validateFutureReports'),
+
+			array('time_started_at, time_ended_at', 'match', 'pattern' => '/([01]?[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]/', 'message' => 'Invalid time format'),
+            array('reported_for_date', 'date', 'format'=>'yyyy-M-d'),
 			// The following rule is used by search().
 			array('id, user_id, project_id, created_at, updated_at, updated_by_id, reported_for_date, time_started_at, time_ended_at, comment', 'safe', 'on'=>'search'),
 		);
@@ -53,7 +59,24 @@ class Report extends CActiveRecord
         }
     }
 
-    public function validateTimeIntersection($attribute, $params){
+    public function validatePastReportDateLimit(){
+        $lastReportDateLimitInSec = $this->getPastReportDateLimit();
+        if(time() - strtotime($this->reported_for_date) > $lastReportDateLimitInSec){
+            $this->addError('reported_for_date', 'Sorry, to late :)');
+        }
+    }
+
+    public function validateFutureReports(){
+        if(
+            date('d') < date('d', strtotime($this->reported_for_date)) or
+            date('m') < date('m', strtotime($this->reported_for_date)) or
+            date('y') < date('y', strtotime($this->reported_for_date))
+        ){
+            $this->addError('reported_for_date', 'You cant see future :)');
+        }
+    }
+
+    public function validateTimeOverlap($attribute, $params){
 
         $hasStartTimeIntersection = Report::model()->count(":started_at BETWEEN t.time_started_at AND t.time_ended_at AND t.user_id = :mine_id AND t.reported_for_date = :reported_for_date", [
             'started_at' => $this->time_started_at,
@@ -171,5 +194,9 @@ class Report extends CActiveRecord
         return parent::beforeValidate();
     }
 
+    public static function getPastReportDateLimit(){
+        //3 days in sec
+        return 259200;
+    }
 
 }
