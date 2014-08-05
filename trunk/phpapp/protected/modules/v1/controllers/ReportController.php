@@ -97,7 +97,7 @@ class ReportController extends APIController
          *           }
          *       }
          * */
-        $this->onRest('model.apply.post.data', function($model, $data, $restricted_properties) {
+        $this->onRest(ERestEvent::MODEL_APPLY_POST_DATA, function($model, $data, $restricted_properties) {
             /**
              * @var Report $model
              */
@@ -107,14 +107,6 @@ class ReportController extends APIController
             }
 
             unset($data['user_id']);
-
-            if(!isset($data['time_started_at'])){
-                $model->time_started_at = date('H:i:s', time());
-            }
-
-            if(!isset($data['reported_at'])){
-                $model->time_started_at = date('Y-m:d H:i:s', time());
-            }
 
             $model->user_id = Yii::app()->user->id;
 

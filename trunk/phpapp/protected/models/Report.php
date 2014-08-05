@@ -39,10 +39,41 @@ class Report extends CActiveRecord
 		return array(
 			array('user_id, project_id, updated_by_id', 'length', 'max'=>10),
 			array('created_at, updated_at, reported_for_date, time_started_at, time_ended_at, comment', 'safe'),
+			array('project_id', 'validateUserProjectBinding', 'user_id' => 'user_id'),
+			array('time_started_at', 'validateTimeIntersection', 'with' => 'time_ended_at'),
 			// The following rule is used by search().
 			array('id, user_id, project_id, created_at, updated_at, updated_by_id, reported_for_date, time_started_at, time_ended_at, comment', 'safe', 'on'=>'search'),
 		);
 	}
+
+    public function validateUserProjectBinding($attribute, $params){
+
+        if(!Project::isUserBounded($this->project_id, $this->user_id)){
+            $this->addError('project_id', 'Not bounded to project');
+        }
+    }
+
+    public function validateTimeIntersection($attribute, $params){
+
+        $hasStartTimeIntersection = Report::model()->count(":started_at BETWEEN t.time_started_at AND t.time_ended_at AND t.user_id = :mine_id AND t.reported_for_date = :reported_for_date", [
+            'started_at' => $this->time_started_at,
+            'mine_id' => Yii::app()->user->id,
+            'reported_for_date' => $this->reported_for_date,
+        ]);
+        $hasEndTimeIntersection = Report::model()->count("t.time_started_at BETWEEN :started_at AND :ended_at AND t.user_id = :mine_id AND t.reported_for_date = :reported_for_date", [
+            'started_at' => $this->time_started_at,
+            'ended_at' => $this->time_ended_at,
+            'mine_id' => Yii::app()->user->id,
+            'reported_for_date' => $this->reported_for_date,
+        ]);
+
+        if($hasStartTimeIntersection){
+            $this->addError('time_started_at', 'Start time intersection range found');
+        }
+        if($hasEndTimeIntersection){
+            $this->addError('time_ended_at', 'End time intersection range found');
+        }
+    }
 
 	/**
 	 * @return array relational rules.
@@ -128,4 +159,17 @@ class Report extends CActiveRecord
 	{
 		return parent::model($className);
 	}
+
+    protected function beforeValidate()
+    {
+        if(!$this->time_started_at){
+            $this->time_started_at = date('H:i:s', time());
+        }
+        if(!$this->reported_for_date){
+            $this->reported_for_date = date('Y-m-d', time());;
+        }
+        return parent::beforeValidate();
+    }
+
+
 }
