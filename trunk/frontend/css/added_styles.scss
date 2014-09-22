@@ -1,0 +1,321 @@
+.reports_history{
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  tr:nth-of-type(odd) {
+    background: #eee;
+  }
+  th {
+    background:#e8edec;;
+    color: #81aeac;
+  }
+  td, th {
+    padding: 6px;
+    border: 1px solid #ccc;
+    text-align: center;
+  }
+}
+@media
+only screen and (max-width: 760px),
+(min-device-width: 768px) and (max-device-width: 1024px)  {
+  #reports_table{
+    /* Force table to not be like tables anymore */
+    table, thead, tbody, th, td, tr {
+      display: block;
+    }
+
+    /* Hide table headers (but not display: none;, for accessibility) */
+    thead tr {
+      position: absolute;
+      top: -9999px;
+      left: -9999px;
+    }
+
+    tr { border: 1px solid #ccc; }
+
+    td, th{
+      text-align: left!important;
+    }
+
+    td {
+      /* Behave  like a "row" */
+      border: none;
+      border-bottom: 1px solid #eee;
+      position: relative;
+    }
+
+    td:before {
+      width: 45%;
+      padding-right: 10px;
+      white-space: nowrap;
+      display: inline-block;
+    }
+
+    /*
+    Label the data
+    */
+    td:nth-of-type(1):before { content: "Project"; }
+    td:nth-of-type(2):before { content: "Created"; }
+    td:nth-of-type(3):before { content: "Date report"; }
+    td:nth-of-type(4):before { content: "Start"; }
+    td:nth-of-type(5):before { content: "End"; }
+    td:nth-of-type(6):before { content: "Duration"; }
+    td:nth-of-type(7):before { content: "Comment"; }
+    td:nth-of-type(8):before { content: ""; }
+  }
+  }
+
+
+.time_container img{
+  width:50%;
+  margin: 0 auto;
+  display: block
+}
+.line{
+  display: none;
+}
+@media (max-width: 760px) {
+  #daily_chart{
+    display: none;
+  }
+  #about-link{
+    display: none!important;
+  }
+  .time_container{
+    width: 50%;
+    margin: 0 auto;
+    padding-bottom: 20px;
+  }
+  .line{
+    display: block;
+  }
+}
+.hours{
+  font-weight: bold;
+  font-size: 60px;
+  color: black;
+  padding-top: 15px;
+}
+
+.button_task_nav{
+  width: 60px;
+  height: 60px;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  opacity: .7;
+  display: block;
+  &:hover{
+    opacity: 1;
+  }
+}
+/*
+.stop_task{
+    background-image: url("../images/stop30.svg");
+  }
+*/
+
+
+/*.start_task{
+  background-image: url("../images/small31.svg");
+}*/
+
+.pause_task{
+  margin-right: 5px;
+}
+
+.edit_button{
+   background-image: url("../images/edit_cion.png");
+   width: 20px;
+   height: 20px;
+   background-size: contain;
+   background-repeat: no-repeat;
+   border: none;
+   background-color: transparent;
+   cursor: pointer;
+ }
+.delete_button{
+  background-image: url("../images/delete_icon.png");
+  width: 20px;
+  height: 20px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.svg{
+  height: 33px;
+  width: 33px;
+  path,rect{
+    fill:#8ebebc!important;
+}
+}
+.non_float_li{
+  float: none;
+  display: block!important;
+  line-height: 22px;
+}
+.task_description{
+  font-size: 16px;
+  margin-bottom: 35px;
+  color: rgba(240, 128, 128, 0.5);
+
+}
+$size: 50px;
+$thickness: 5px;
+$angle: 40deg;
+$angleHover: 30deg;
+$angleActive: 25deg;
+
+@mixin arrowTransform( $angle, $x: 0, $y: 0 ) {
+  i:first-child {
+    transform: translate( $x, $y ) rotate( $angle );
+  }
+
+  i:last-child {
+    transform: translate( $x, -$y ) rotate( -$angle );
+  }
+}
+
+button {
+  -webkit-appearance: none;
+  background: transparent;
+  border: 0;
+  outline: 0;
+}
+
+.paginate {
+  position: relative;
+  margin: 10px;
+  width: $size;
+  height: $size;
+  cursor: pointer;
+  transform: translate3d(0,0,0); // fixes flicker in webkit
+  margin-top: -20px;
+  -webkit-filter: drop-shadow( 0 2px 0px rgba(0,0,0,0.2) );
+
+  i {
+    position: absolute;
+    top: 40%;
+    left: 0;
+    width: $size;
+    height: $thickness;
+    border-radius: $thickness / 2;
+    background: #9ececc;;
+
+    transition: all 0.15s ease;
+  }
+
+  &.left {
+
+    i {
+      transform-origin: 0% 50%
+    }
+
+    @include arrowTransform( $angle, 0, -1px );
+
+    &:hover {
+      @include arrowTransform( $angleHover, 0, -1px );
+    }
+
+    &:active {
+      @include arrowTransform( $angleActive, 1px, -1px );
+    }
+
+    &[data-state=disabled] {
+      @include arrowTransform( 0deg, -5px, 0 );
+
+      &:hover {
+        @include arrowTransform( 0deg, -5px, 0 );
+      }
+    }
+  }
+
+  &.right {
+
+    i {
+      transform-origin: 100% 50%
+    }
+
+    @include arrowTransform( $angle, 0, 1px );
+
+    &:hover {
+      @include arrowTransform( $angleHover, 0, 1px );
+    }
+
+    &:active {
+      @include arrowTransform( $angleActive, 1px, 1px );
+    }
+
+    &[data-state=disabled] {
+      @include arrowTransform( 0deg, 5px, 0 );
+
+      &:hover {
+        @include arrowTransform( 0deg, 5px, 0 );
+      }
+    }
+  }
+
+  &[data-state=disabled] {
+    opacity: 0.3;
+    cursor: default;
+  }
+}
+
+
+
+.counter {
+  text-align: center;
+  width: 100%;
+  top: 50%;
+  margin-top: -15px;
+  font-size: 30px;
+  font-family: Helvetica, sans-serif;
+  text-shadow: 0px 2px 0px rgba( 0, 0, 0, 0.2 );
+  color: #9ececc;
+}
+
+table td{
+  font-size: 16px;
+  text-align: center!important;
+}
+table th, table input, table select{
+  text-align: center!important;
+}
+.daterangepicker{
+  display: none;
+  font-size: 12px;
+  td{
+    min-width: 24px!important;
+    line-height: 20px;
+  }
+  .applyBtn{
+    border: 2px solid #81aeac;
+  }
+}
+.input_in_table{
+  position: relative;
+  -webkit-appearance: none;
+  display: block;
+  border: 0;
+  background: #fff;
+  background: rgba(255,255,255,0.75);
+  width: 100%;
+  border-radius: 0.35em;
+  padding: 0.3em 0.5em 0.3em 0.5em;
+  box-shadow: inset 0 0.1em 0.1em 0 rgba(0,0,0,0.05);
+  border: solid 1px rgba(0,0,0,0.15);
+  -moz-transition: all 0.35s ease-in-out;
+  -webkit-transition: all 0.35s ease-in-out;
+  -o-transition: all 0.35s ease-in-out;
+  -ms-transition: all 0.35s ease-in-out;
+  transition: all 0.35s ease-in-out;
+}
+th input, th select{
+  font-size: 16px;
+}

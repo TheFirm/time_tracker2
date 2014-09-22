@@ -1,0 +1,382 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Time Tracker</title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <meta name="description" content=""/>
+    <meta name="keywords" content=""/>
+    <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600" rel="stylesheet"
+          type="text/css"/>
+    <!--[if lte IE 8]>
+    <script src="js/html5shiv.js"></script><![endif]-->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/skel.min.js"></script>
+    <script src="js/skel-panels.min.js"></script>
+    <script src="js/picker.js"></script>
+    <script src="js/picker.date.js"></script>
+    <script src="js/jquery-clockpicker.js"></script>
+    <script src="js/moment.js"></script>
+    <script src="js/daterangepicker.js"></script>
+    <script src="js/init.js"></script>
+    <script src="http://code.highcharts.com/stock/highstock.js"></script>
+    <script src="http://code.highcharts.com/stock/modules/exporting.js"></script>
+    <noscript>
+        <link rel="stylesheet" href="css/skel-noscript.css"/>
+        <link rel="stylesheet" href="css/style.css"/>
+        <link rel="stylesheet" href="css/style-wide.css"/>
+    </noscript>
+
+<!--    <link rel="stylesheet" href="css/bootstrap.css">-->
+    <link rel="stylesheet" href="css/default.css">
+    <link rel="stylesheet" href="css/default.date.css">
+    <link rel="stylesheet" href="css/jquery-clockpicker.css">
+    <link rel="stylesheet" href="css/daterangepicker-bs3.css">
+    <link rel="stylesheet" href="css/added_styles.css"/>
+    <!--[if lte IE 9]>
+    <link rel="stylesheet" href="css/ie9.css"/><![endif]-->
+    <!--[if lte IE 8]>
+    <link rel="stylesheet" href="css/ie8.css"/><![endif]-->
+</head>
+<body>
+
+<!-- Header -->
+<div id="header" class="skel-panels-fixed">
+
+    <div class="top">
+
+        <!-- Logo -->
+        <div id="logo">
+            <span class="image avatar48"><img src="images/avatar.jpg" alt=""/></span>
+
+            <h1 id="title">Igor Feoktistov</h1>
+            <span class="byline">Engineer</span>
+        </div>
+
+        <!-- Nav -->
+        <nav id="nav">
+            <ul>
+
+                <li><a href="#create_report" id="create_report-link" class="skel-panels-ignoreHref"><span class="fa fa-home">Create report</span></a></li>
+                <li><a href="#reports_table" id="reports_table-link" class="skel-panels-ignoreHref"><span class="fa fa-th">Reports history</span></a></li>
+                <li><a href="#personal_statistics" id="personal_statistics-link" class="skel-panels-ignoreHref"><span class="fa fa-user">Time information</span></a></li>
+                <li><a href="#daily_chart" id="daily_chart-link" class="skel-panels-ignoreHref"><span class="fa fa-envelope">Daily Chart</span></a></li>
+
+            </ul>
+        </nav>
+
+    </div>
+
+    <div class="bottom">
+
+
+        						<ul class="icons">
+                                    <li  class="non_float_li">Last report : <span class="last_report_time">5</span> min ago</li>
+                                    <li class="non_float_li task_description">[Nosorog] - [Fix bugs] - [07:55]</li>
+                                    <li>
+                                        <a href="" class="start_task button_task_nav">
+                                            <img  class="svg" src="images/small31.svg">
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="" class="pause_task button_task_nav">
+                                            <img class="svg" src="images/pause.svg">
+                                         </a>
+                                    </li>
+                                    <li>
+                                        <a href="" class="stop_task button_task_nav">
+                                            <img class="svg" src="images/stop30.svg">
+                                        </a>
+                                    </li>
+<!--                                   <li><a href="#" class="fa fa-facebook solo"><span>Facebook</span></a></li>
+                                    <li><a href="#" class="fa fa-github solo"><span>Github</span></a></li>
+                                    <li><a href="#" class="fa fa-dribbble solo"><span>Dribbble</span></a></li>
+                                    <li><a href="#" class="fa fa-envelope solo"><span>Email</span></a></li>-->
+                                </ul>
+
+    </div>
+
+</div>
+
+<!-- Main -->
+<div id="main">
+
+<!-- Intro -->
+
+<section id="create_report" class="one" style="padding-top: 15px">
+    <div class="container">
+
+        <form method="post" action="#">
+            <div class="row half">
+                <div class="12u">
+                    <select name="name" data-placeholder="Project">
+                        <option value="" disabled selected>Select project</option>
+                        <option value="">Nosorog</option>
+                        <option value="">Ankors</option>
+                        <option value="">ERP System</option>
+                        <option value="">Chat Assistant</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row half">
+                <div class="3u">
+                    <input type="text" class="text datepicker" placeholder="Date">
+                </div>
+                <div class="3u">
+                    <input id="time_1" class="text" placeholder="Start time">
+                </div>
+                <div class="3u">
+                    <input id="time_2" class="text" placeholder="End time">
+                </div>
+                <div class="3u">
+                     <input class="text" placeholder="Task duration" disabled>
+                </div>
+            </div>
+            <div class="row half">
+                <div class="12u">
+                    <textarea name="message" placeholder="Message"></textarea>
+                </div>
+            </div>
+            <div class="row">
+                <div class="12u">
+                    <a href="#" class="button submit">Send Report</a>
+                </div>
+            </div>
+        </form>
+
+    </div>
+</section>
+
+<!-- Portfolio -->
+<section id="reports_table" class="two">
+    <div class="container">
+        <div class="reports_history">
+            <table>
+                <thead>
+                <tr>
+                    <th>Project</th>
+                    <th>Created</th>
+                    <th>Date report</th>
+                    <th>Start</th>
+                    <th>End</th>
+                    <th>Duration</th>
+                    <th>Comment</th>
+                    <th></th>
+                </tr>
+                <tr>
+                    <th>
+                        <select class="input_in_table" name="name" data-placeholder="Project">
+                            <option value="" disabled selected>Select project</option>
+                            <option value="">Nosorog</option>
+                            <option value="">Ankors</option>
+                            <option value="">ERP System</option>
+                            <option value="">Chat Assistant</option>
+                        </select>
+                    </th>
+                    <th></th>
+                    <th>
+                        <input type="text" class="input_in_table" name="daterange"  placeholder="Date">
+                    </th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>Nosorog</td>
+                    <td>12.05.1987 17:56</td>
+                    <td>25.07.2014</td>
+                    <td>13:58</td>
+                    <td>15:58</td>
+                    <td>4:57</td>
+                    <td>bootstrap & html5 tests</td>
+                    <td>
+                        <button class="edit_button"></button>
+                        <button class="delete_button"></button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Nosorog</td>
+                    <td>12.05.1987 17:56</td>
+                    <td>25.07.2014</td>
+                    <td>13:58</td>
+                    <td>15:58</td>
+                    <td>4:57</td>
+                    <td>bootstrap & html5 tests</td>
+                    <td>
+                        <button class="edit_button"></button>
+                        <button class="delete_button"></button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Nosorog</td>
+                    <td>12.05.1987 17:56</td>
+                    <td>25.07.2014</td>
+                    <td>13:58</td>
+                    <td>15:58</td>
+                    <td>4:57</td>
+                    <td>bootstrap & html5 tests</td>
+                    <td>
+                        <button class="edit_button"></button>
+                        <button class="delete_button"></button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Nosorog</td>
+                    <td>12.05.1987 17:56</td>
+                    <td>25.07.2014</td>
+                    <td>13:58</td>
+                    <td>15:58</td>
+                    <td>4:57</td>
+                    <td>bootstrap & html5 tests</td>
+                    <td>
+                        <button class="edit_button"></button>
+                        <button class="delete_button"></button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Nosorog</td>
+                    <td>12.05.1987 17:56</td>
+                    <td>25.07.2014</td>
+                    <td>13:58</td>
+                    <td>15:58</td>
+                    <td>4:57</td>
+                    <td>bootstrap & html5 tests</td>
+                    <td>
+                        <button class="edit_button"></button>
+                        <button class="delete_button"></button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Nosorog</td>
+                    <td>12.05.1987 17:56</td>
+                    <td>25.07.2014</td>
+                    <td>13:58</td>
+                    <td>15:58</td>
+                    <td>4:57</td>
+                    <td>bootstrap & html5 tests</td>
+                    <td>
+                        <button class="edit_button"></button>
+                        <button class="delete_button"></button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="row half">
+                <div class="4u">
+                    <button class="paginate left"><i></i><i></i></button>
+                </div>
+                <div class="4u">
+                    <div class="counter"></div>
+                </div>
+                <div class="4u">
+                    <button class="paginate right"><i></i><i></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- About Me -->
+<section id="personal_statistics" class="three">
+    <div class="container">
+        <div class="row half">
+            <div class="3u">
+                <div class="time_container">
+                    <img src="images/sum_cion.png">
+
+                    <div class="hours">2783:35</div>
+                </div>
+                <hr class="line">
+            </div>
+            <div class="3u">
+                <div class="time_container">
+                    <img src="images/month_icon.png">
+
+                    <div class="hours">176:30</div>
+                </div>
+                <hr class="line">
+            </div>
+            <div class="3u">
+                <div class="time_container">
+                    <img src="images/week_icon.png">
+
+                    <div class="hours">45:15</div>
+                </div>
+                <hr class="line">
+            </div>
+            <div class="3u">
+                <div class="time_container">
+                    <img src="images/day_icon.png">
+
+                    <div class="hours">9:45</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section id="daily_chart" class="four">
+    <div class="container">
+        <div id="container" style="height: 450px; min-width: 310px"></div>
+
+    </div>
+</section>
+
+<!-- Contact -->
+
+</div>
+
+<!-- Footer -->
+<div id="footer">
+
+    <!-- Copyright -->
+    <div class="copyright">
+        <p>&copy; 2014 HireUkrainians</p>
+    </div>
+
+</div>
+
+
+<script>
+    $(document).ready(function(){
+        $('.datepicker,.datepicker_filter_1, .datepicker_filter_2').pickadate() ;
+        $('#time_1, #time_2').clockpicker({
+            autoclose: true
+        });
+
+        $('input[name="daterange"]').daterangepicker();
+        $(function() {
+
+            $.getJSON('http://www.highcharts.com/samples/data/jsonp.php?filename=aapl-c.json&callback=?', function(data) {
+                // Create the chart
+                $('#container').highcharts('StockChart', {
+
+
+                    rangeSelector : {
+                        selected : 1,
+                        inputEnabled: $('#container').width() > 480
+                    },
+
+                    title : {
+                        text : 'AAPL Stock Price'
+                    },
+
+                    series : [{
+                        name : 'AAPL',
+                        data : data,
+                        tooltip: {
+                            valueDecimals: 2
+                        }
+                    }]
+                });
+            });
+
+        });
+    });
+</script>
+</body>
+</html>
