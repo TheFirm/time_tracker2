@@ -1,0 +1,23 @@
+/* line 18, ../sass/custom_styles.scss */
+.login_block {
+  margin-top: 20px;
+}
+/* line 20, ../sass/custom_styles.scss */
+.login_block .login_button {
+  background-color: transparent;
+  border: none;
+}
+/* line 23, ../sass/custom_styles.scss */
+.login_block .login_button i {
+  font-size: 48px;
+  color: #00BCD4;
+}
+/* line 28, ../sass/custom_styles.scss */
+.login_block img, .login_block h4 {
+  margin-bottom: 25px;
+}
+
+/* line 34, ../sass/custom_styles.scss */
+button:focus {
+  outline: none;
+}

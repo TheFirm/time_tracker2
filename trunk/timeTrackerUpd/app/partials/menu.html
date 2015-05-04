@@ -1,0 +1,30 @@
+<div class="navbar navbar-material-lightblue">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-material-light-blue-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="javascript:void(0)">Time tracker</a>
+        </div>
+        <div class="navbar-collapse collapse navbar-material-light-blue-collapse">
+            <ul class="nav navbar-nav">
+                <li><a ui-sref="menu.dashboard">Dashboard</a></li>
+                <li><a href="javascript:void(0)">Link</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                    <a href="index.html" data-target="#" class="dropdown-toggle" data-toggle="dropdown">John Smith <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="javascript:void(0)">Sign Out</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div ui-view></div>
+</div>
