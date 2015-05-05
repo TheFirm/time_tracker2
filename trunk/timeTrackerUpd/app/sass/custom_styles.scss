@@ -37,3 +37,46 @@ button:focus {
 //Login end
 //Login end
 
+//Dashboard
+//Dashboard
+//Dashboard
+
+
+.chart.chart-bar{
+  width: 100%;
+  height: 300px;
+}
+
+//Dashboard end
+//Dashboard end
+//Dashboard end
+
+
+//Main
+//Main
+//Main
+
+.well.report_form{
+  position: relative;
+  margin-top: 30px;
+  margin-bottom: 50px;
+  .form-group{
+    margin-bottom: 0px;
+  }
+  .current_time_on_task{
+    font-size: 21px;
+  }
+  .start_button{
+    display: block;
+    position: absolute;
+    right: -5px;
+    top: -29px;
+    height: 68px;
+    width: 100%;
+    @include border-radius(0px);
+  }
+}
+
+//Main end
+//Main end
+//Main end

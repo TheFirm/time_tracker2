@@ -21,3 +21,36 @@
 button:focus {
   outline: none;
 }
+
+/* line 45, ../sass/custom_styles.scss */
+.chart.chart-bar {
+  width: 100%;
+  height: 300px;
+}
+
+/* line 59, ../sass/custom_styles.scss */
+.well.report_form {
+  position: relative;
+  margin-top: 30px;
+  margin-bottom: 50px;
+}
+/* line 63, ../sass/custom_styles.scss */
+.well.report_form .form-group {
+  margin-bottom: 0px;
+}
+/* line 66, ../sass/custom_styles.scss */
+.well.report_form .current_time_on_task {
+  font-size: 21px;
+}
+/* line 69, ../sass/custom_styles.scss */
+.well.report_form .start_button {
+  display: block;
+  position: absolute;
+  right: -5px;
+  top: -29px;
+  height: 68px;
+  width: 100%;
+  -moz-border-radius: 0px;
+  -webkit-border-radius: 0px;
+  border-radius: 0px;
+}

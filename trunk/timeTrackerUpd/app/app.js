@@ -2,14 +2,12 @@
 
 var timeTracker = angular.module('timeTracker', [
     'ui.router',
-    'satellizer'
+    'chart.js'
 ]);
 
-timeTracker.config(function ($stateProvider, $urlRouterProvider, $authProvider) {
+timeTracker.config(function ($stateProvider, $urlRouterProvider) {
 
-    $.material.init();
-
-    $urlRouterProvider.otherwise("/menu/dashboard");
+    $urlRouterProvider.otherwise("/menu/main");
 
     $stateProvider
 
@@ -26,5 +24,20 @@ timeTracker.config(function ($stateProvider, $urlRouterProvider, $authProvider) 
         .state('menu.dashboard', {
             url: "/dashboard",
             templateUrl: "partials/dashboard.html"
+        })
+
+        .state('menu.main', {
+            url: "/main",
+            templateUrl: "partials/main.html"
         });
+
+    $.material.init();
+});
+
+timeTracker.controller("BarCtrl", function ($scope) {
+    $scope.labels = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+
+    $scope.data = [
+        [6, 8, 12, 6, 10, 2, 0]
+    ];
 });
